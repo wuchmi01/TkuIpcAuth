@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<div class="row">
+    <div class="col-sm-offset-4 col-sm-8" id="authView">
+        @*Auth view will display here*@
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-offset-4 col-sm-8">
+        @Html.ValidationSummary(true, string.Empty, new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-offset-4 col-sm-8">
+        <label class="radio-inline">
+            <input type="radio" name="auth" value="forms" checked>
+            &nbsp;本地驗證
+        </label>
+
+        <label class="radio-inline">
+            <input type="radio" name="auth" value="mix">
+            &nbsp;混和驗證
+        </label>
+
+        <label class="radio-inline">
+            <input type="radio" name="auth" value="portal">
+            &nbsp;入口驗證
+        </label>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(function () {
+            var authElem = $(":radio[name='auth']"),
+                defaultAuth = authElem.val(),
+                getAuthView = function (authName) {
+                    var ajaxSettings = {
+                        data: { authName: authName },
+                        method: "post",
+                        url: SYS_NAME + "Account/GetAuthView",
+
+                        success: function (html) {
+                            if (html.indexOf("http") !== 0) {
+                                $("#authView").empty().append(html);
+                            } else {                                
+                                if (window.confirm("確定前往入口？")) {
+                                    window.location = html;
+                                }
+                            }
+                        }
+                    };
+
+                    $.ajax(ajaxSettings);
+                };
+
+            authElem.on("change", function () {
+                //避免 Session 殘留於 server, 故就算是 redirect 至 portal, 也須先回 server 清 session
+                var authName = $(this).val();
+                getAuthView(authName);
+            });
+
+            getAuthView(defaultAuth);
+        });
+    </script>
+}

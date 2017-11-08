@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>已成功登出！</h2>
+
+@if (ViewData["logout"] != null) { 
+    <div class="row">
+        <div class="col-sm-12">
+            <iframe frameborder="0" scrolling="no" sandbox="allow-scripts" style="width:800px;height:250px" src="@ViewData["logout"]"></iframe>
+        </div>
+    </div>
+}

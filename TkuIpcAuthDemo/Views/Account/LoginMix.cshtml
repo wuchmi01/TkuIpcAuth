@@ -1,0 +1,17 @@
+﻿@{ Layout = null; }
+<!DOCTYPE html>
+<html lang="zh-tw">
+<head>
+    <title></title>
+    <meta charset="utf-8" />    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    
+</head>
+<body>
+    <div>
+        <span style="color:#dd5a43;font-size:32px;font-weight:bold">登入中請稍後...</span>
+        @Html.Hidden("redir", ViewData["redir"])
+    </div>
+
+    <script>window.top.location.href = decodeURIComponent(document.getElementById("redir").value);</script>
+</body>
+</html>
