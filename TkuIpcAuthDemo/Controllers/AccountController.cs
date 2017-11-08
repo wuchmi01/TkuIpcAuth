@@ -51,7 +51,8 @@ namespace TkuIpcAuthDemo.Controllers {
                     break;
 
                 case "mix":                    
-                    Session[token] = "_" + Guid.NewGuid().ToString().Substring(0, 7);
+                    Session[token]    = "_" + Guid.NewGuid().ToString().Substring(0, 7);
+                    ViewData["login"] = ssoUrl + WebConfigurationManager.AppSettings["SSO_MIX"] + "?&embed=yes&sKey=" + Session[token];
 
                     authStor.SetAuthMethod("mix");
                     actionResult = PartialView("FormForMixAuth");

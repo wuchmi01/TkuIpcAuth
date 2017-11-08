@@ -1,2 +1,1 @@
-﻿<iframe frameborder="0" scrolling="no" style="width:450px; height:250px;" 
-        src="@(WebConfigurationManager.AppSettings["SSO_URL"] + WebConfigurationManager.AppSettings["SSO_MIX"] + "?&embed=yes&sKey=" + Session[WebConfigurationManager.AppSettings["SSO_TOKEN_NM"]])"></iframe>
+﻿<iframe frameborder="0" scrolling="no" style="width:450px; height:250px;" src="@ViewData["login"]"></iframe>
